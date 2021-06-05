@@ -10,7 +10,7 @@ node 'slave1.puppet' {
    
    file { '/var/www/html/index.html':
       ensure => file,
-      source => 'https://raw.githubusercontent.com/kozharskiy-vitaliy/puppet-hometask/production/files/index.html',
+      source => 'https://raw.githubusercontent.com/serggarant/puppet_conf/production/files/index.html',
       replace => false,
       }
 }
@@ -26,7 +26,7 @@ node 'slave2.puppet' {
    
    file { '/var/www/html/index.php':
       ensure => file,
-      source => 'https://raw.githubusercontent.com/kozharskiy-vitaliy/puppet-hometask/production/files/index.php',
+      source => 'https://raw.githubusercontent.com/serggarant/puppet_conf/production/files/index.php',
       replace => false,
       }
 }
