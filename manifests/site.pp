@@ -44,4 +44,9 @@ node 'slave2.puppet' {
       command => 'sudo sed -i '/Listen 80/a Listen 81' /etc/httpd/conf/httpd.conf',
       provider => shell,
       }
+      
+    exec {"restart httd":
+      command => 'sudo systemctl restart httpd',
+      provider => shell,
+      }
 }
