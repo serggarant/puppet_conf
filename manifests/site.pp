@@ -34,5 +34,14 @@ node 'slave2.puppet' {
       ensure => file,
       source => 'https://raw.githubusercontent.com/serggarant/puppet_conf/production/files/web.conf',
       replace => false,
-      }   
+      } 
+      
+    file { '/etc/httpd/conf.d/welcome.conf':
+      ensure => absent,
+      } 
+      
+    exec {"list 81 port":
+      command => 'sudo sed -i '/Listen 80/a Listen 81' /etc/httpd/conf/httpd.conf',
+      provider => shell,
+      }
 }
