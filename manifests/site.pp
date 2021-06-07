@@ -29,4 +29,10 @@ node 'slave2.puppet' {
       source => 'https://raw.githubusercontent.com/serggarant/puppet_conf/production/files/index.php',
       replace => false,
       }
+      
+   file { '/etc/httpd/conf.d/web.conf':
+      ensure => file,
+      source => 'https://raw.githubusercontent.com/serggarant/puppet_conf/production/files/web.conf',
+      replace => false,
+      }   
 }
