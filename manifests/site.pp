@@ -39,14 +39,4 @@ node 'slave2.puppet' {
     file { '/etc/httpd/conf.d/welcome.conf':
       ensure => absent,
       } 
-      
-    exec {"list 81 port":
-      command => 'sudo sed -i '/Listen 80/a Listen 81' /etc/httpd/conf/httpd.conf',
-      provider => shell,
-      }
-      
-    exec {"restart httd":
-      command => 'sudo systemctl restart httpd',
-      provider => shell,
-      }
 }
