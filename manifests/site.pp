@@ -1,42 +1,50 @@
-node default {
-}
-
 node 'slave1.puppet' {
-   class { 'apache': }
-   
-   file { '/root/README':
-      ensure => absent,
-      }
-   
-   file { '/var/www/html/index.html':
-      ensure => file,
-      source => 'https://raw.githubusercontent.com/serggarant/puppet_conf/production/files/index.html',
-      replace => false,
-      }
-}
+   package { 'php':
+    ensure => installed, 
+            }
+  package { 'httpd':
+    ensure => installed, 
+            }
 
-node 'slave2.puppet' {
-   class { 'apache::mod::php': }
-   
-   class { 'php': }
-   
-   file { '/root/README':
+  file { '/var/www/html/index.php':
+         ensure => file,
+         source => 'https://raw.githubusercontent.com/serggarant/puppet_conf/production/files/index.php',
+         replace => false,
+         notify => Service['httpd']
+          }
+  file {'/root/README':
       ensure => absent,
-      }
-   
-   file { '/var/www/html/index.php':
-      ensure => file,
-      source => 'https://raw.githubusercontent.com/serggarant/puppet_conf/production/files/index.php',
-      replace => false,
-      }
-      
-   file { '/etc/httpd/conf.d/web.conf':
-      ensure => file,
-      source => 'https://raw.githubusercontent.com/serggarant/puppet_conf/production/files/web.conf',
-      replace => false,
-      } 
-      
-    file { '/etc/httpd/conf.d/welcome.conf':
-      ensure => absent,
-      } 
+       }
+      service {'httpd':
+        ensure=> running,
+        
+      }  
+                    }
+  
+node 'slave2.puppet'{
+    class {'apache':
+    default_vhost => false, 
+          }
+      apache::vhost{'serg':
+            port    => '81',
+            docroot    => '/var/www/html',
+             }
+    file { '/var/www/html/index.html':
+         ensure => file,
+         source => 'https://raw.githubusercontent.com/serggarant/puppet_conf/production/files/index.html',
+         replace => false,
+         notify => Service['httpd']
+        file {'/root/README':
+         ensure => absent,
+         }
+             }
+node 'master.puppet' {
+class { "nginx": }
+   nginx::resource::server { 'serg':
+    listen_port => 81,
+    proxy       => 'slave2.puppet:81',
 }
+ }
+
+      
+  
