@@ -1,11 +1,10 @@
 node 'default' {} 
 node 'master.puppet' {
   include 'nginx'
-  nginx::resource::server { '127.0.0.1':
-  listen_port => 82,
-  proxy       => 'http://192.168.3.12:81',
+  nginx::resource::server { '192.168.3.12':
+  listen_port => 81,
+  proxy       => 'http://192.168.3.10:82',
   }
-}
 
 node 'slave1.puppet' {
    class { 'apache':}
