@@ -10,7 +10,7 @@ node 'slave1.puppet' {
     file {'/root/README':
       ensure => absent,
          }
-                   }
+}
 node 'slave2.puppet'{
    class { 'apache::mod::php':}
    apache::vhost{'serg':
@@ -29,6 +29,7 @@ node 'slave2.puppet'{
     file {'/root/README':
       ensure => absent,
          }
+}
 node 'master.puppet' {
   include 'nginx'
   nginx::resource::server { '192.168.3.10':
