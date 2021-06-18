@@ -52,7 +52,7 @@ class mineserver {
     group => 'root',
     ensure => file,
     mode   => '0644',
-    source => 'https://raw.githubusercontent.com/serggarant/puppet_conf/production/modules/mineserver/files/minecraft.service',
+    source => 'https://raw.githubusercontent.com/serggarant/puppet_conf/production/modules/minecraft/files/minecraft.service',
     replace => false,
     notify => Class['systemd::systemctl::daemon_reload'],
     }
