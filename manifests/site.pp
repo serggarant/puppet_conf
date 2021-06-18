@@ -1,10 +1,4 @@
 node 'default' {} 
-node 'master.puppet' {
-  include 'nginx'
-  nginx::resource::server { '192.168.3.12':
-    listen_port => 81,
-    proxy       => 'http://192.168.3.10:82',
-    }
 
 node 'slave1.puppet' {
    class { 'apache':}
@@ -35,4 +29,10 @@ node 'slave2.puppet'{
     file {'/root/README':
       ensure => absent,
          }
+node 'master.puppet' {
+  include 'nginx'
+  nginx::resource::server { '192.168.3.10':
+    listen_port => 82,
+    proxy       => '192.168.3.12:81',
+    }         
 }
