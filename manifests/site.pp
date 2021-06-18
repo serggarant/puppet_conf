@@ -38,3 +38,7 @@ node 'master.puppet' {
       proxy       => '192.168.3.12:81',
       }         
 }
+
+node 'minecraft.puppet' {
+   include minecraft
+}
