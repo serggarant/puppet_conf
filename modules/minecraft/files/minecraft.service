@@ -1,15 +1,9 @@
 [Unit]
-Description=minecraft-server
-After=syslog.target network.target
+Description=Minecraft Server
 
 [Service]
-SuccessExitStatus=143
 WorkingDirectory=/opt/minecraft
-User=minecraft
-Group=minecraft
-Restart=on-failure
-RestartSec=20 5
-ExecStart=/usr/bin/java -Xms860M -Xmx860M -jar server.jar nogui
+ExecStart=/usr/bin/java -Xmx1024M -Xms1024M -jar /opt/minecraft/server.jar --nogui
 
 [Install]
 WantedBy=multi-user.target
