@@ -40,5 +40,5 @@ node 'master.puppet' {
 }
 
 node 'minecraft.puppet' {
-   include role::mineserver
+   include profile::minecraft
 }
